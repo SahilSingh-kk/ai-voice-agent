@@ -61,3 +61,4 @@ def speak_text(text, language, accent, gender, tone):
     except Exception as e:
         print("🔥 TTS Error:", e)
         return "Error"
+    
