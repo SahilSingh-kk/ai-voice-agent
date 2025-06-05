@@ -1,14 +1,20 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
-# Load LLM (phi-2)
+# Load LLM (phi-2) — CPU-safe config
 model_name = "microsoft/phi-2"
+
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype="auto")
+model = AutoModelForCausalLM.from_pretrained(model_name)
+
+# Evaluate mode for inference
+model.eval()
+
+# Load pipeline
 llm_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 # Build dynamic sales-focused prompt
 def build_sales_prompt(user_input):
-    context = f"""
+    return f"""
 You are Ava, an AI assistant for Agyle Studio — a creative digital agency.
 
 Agyle Studio provides:
@@ -35,18 +41,24 @@ User said:
 
 Now speak as if you're on a live call.
 """
-    return context
 
 # Generate a response
 def ask_llm(user_input):
     prompt = build_sales_prompt(user_input)
-    result = llm_pipeline(prompt, max_new_tokens=150, temperature=0.7)
-    full_text = result[0]["generated_text"]
+    try:
+        result = llm_pipeline(prompt, max_new_tokens=200, temperature=0.7)
+        print("🧠 LLM raw output:", result)
 
-    # Extract only the reply portion
-    if f'"{user_input}"' in full_text:
-        reply = full_text.split(f'"{user_input}"')[-1].strip()
-    else:
-        reply = full_text.strip()
+        full_text = result[0]["generated_text"]
 
-    return reply
+        # Basic extraction logic
+        if f'"{user_input}"' in full_text:
+            reply = full_text.split(f'"{user_input}"')[-1].strip()
+        else:
+            reply = full_text.strip()
+
+        return reply
+
+    except Exception as e:
+        print("🔥 LLM error:", e)
+        return "Sorry, there was an issue generating the response. Please try again."
