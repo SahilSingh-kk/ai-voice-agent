@@ -9,7 +9,7 @@ VOICE_MAP = {
     ("English", "US", "Female", "Calm"): "en-US-AriaNeural",
     ("English", "US", "Male", "Calm"): "en-US-GuyNeural",
     ("English", "US", "Female", "Serious"): "en-US-MichelleNeural",
-    ("English", "US", "Male", "Serious"): "en-US-GuyNeural"  # fallback to stable voice
+    ("English", "US", "Male", "Serious"): "en-US-GuyNeural",  # fallback to stable voice
 
 
     # India Voices
