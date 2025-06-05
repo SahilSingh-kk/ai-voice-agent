@@ -9,7 +9,8 @@ VOICE_MAP = {
     ("English", "US", "Female", "Calm"): "en-US-AriaNeural",
     ("English", "US", "Male", "Calm"): "en-US-GuyNeural",
     ("English", "US", "Female", "Serious"): "en-US-MichelleNeural",
-    ("English", "US", "Male", "Serious"): "en-US-DavisNeural",  # Added
+    ("English", "US", "Male", "Serious"): "en-US-GuyNeural"  # fallback to stable voice
+
 
     # India Voices
     ("English", "India", "Female", "Cheerful"): "en-IN-NeerjaNeural",
@@ -43,7 +44,20 @@ async def speak_edge(text, voice, file_path):
     await communicate.save(file_path)
 
 def speak_text(text, language, accent, gender, tone):
-    voice = VOICE_MAP.get((language, accent, gender, tone), "en-US-JennyNeural")
+    key = (language, accent, gender, tone)
+    voice = VOICE_MAP.get(key)
+
+    print("🔊 Requested voice key:", key)
+    print("🎤 Resolved voice ID:", voice)
+
+    if not voice:
+        return "Error: Voice not found"
+
     unique_filename = f"response_{uuid.uuid4().hex[:6]}.mp3"
-    asyncio.run(speak_edge(text, voice, unique_filename))
-    return unique_filename
+
+    try:
+        asyncio.run(speak_edge(text, voice, unique_filename))
+        return unique_filename
+    except Exception as e:
+        print("🔥 TTS Error:", e)
+        return "Error"
