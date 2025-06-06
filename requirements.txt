@@ -7,4 +7,3 @@ git+https://github.com/openai/whisper.git
 torch
 scipy
 numpy
-accelerate

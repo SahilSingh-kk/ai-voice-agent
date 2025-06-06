@@ -1,6 +1,6 @@
 ---
 title: Voxa - AI Voice Agent
-emoji: 🗣️
+emoji: 🧠
 colorFrom: indigo
 colorTo: purple
 sdk: gradio
@@ -9,6 +9,4 @@ app_file: app.py
 pinned: false
 ---
 
-Voxa is an AI-powered voice assistant built with `phi-2`, `whisper`, and `edge-tts`. It allows users to interact via voice in real time, making it suitable for customer support, lead generation, or assistant-like interfaces.
-
-> Visit [Agyle Studio](https://agylestudio.com) for more projects.
+Voxa is an AI-powered voice agent using Hugging Face’s `phi-2` LLM, `whisper` for STT, and `edge-tts` for TTS. Built to demonstrate voice interaction capabilities for customer support, productivity, and automation tasks.
