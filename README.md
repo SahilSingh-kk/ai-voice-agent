@@ -9,4 +9,4 @@ app_file: app.py
 pinned: false
 ---
 
-Voxa is an AI-powered voice agent using Hugging Face’s `phi-2` LLM, `whisper` for STT, and `edge-tts` for TTS. Built to demonstrate voice interaction capabilities for customer support, productivity, and automation tasks.
+## Voxa is an AI-powered voice agent using Hugging Face’s `phi-2` LLM, `whisper` for STT, and `edge-tts` for TTS. Built to demonstrate voice interaction capabilities for customer support, productivity, and automation tasks.
